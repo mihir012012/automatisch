@@ -47,6 +47,7 @@ services:
   - type: worker
     name: automatisch-worker
     env: docker
+    plan: free
     dockerfilePath: ./docker/Dockerfile
     dockerContext: ./docker
     repo: https://github.com/mihir012012/automatisch
