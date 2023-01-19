@@ -1,5 +1,6 @@
 services:
   - type: web
+    plan: free
     name: automatisch-main
     env: docker
     dockerfilePath: ./docker/Dockerfile
@@ -44,6 +45,7 @@ services:
           property: port
       - fromGroup: common-env-vars
   - type: worker
+    plan: free
     name: automatisch-worker
     env: docker
     dockerfilePath: ./docker/Dockerfile
@@ -90,11 +92,13 @@ services:
           property: port
       - fromGroup: common-env-vars
   - type: redis
+    plan: free
     name: automatisch-redis
     ipAllowList: [] # allow only internal connections
     maxmemoryPolicy: noeviction
 databases:
   - name: automatisch-database
+    plan: free
     databaseName: automatisch
 envVarGroups:
   - name: common-env-vars
