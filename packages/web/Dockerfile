@@ -8,7 +8,7 @@ COPY . .
 
 # FROM node:16-alpine
 
-# WORKDIR /react
+WORKDIR /react
 # COPY --from=build /react .
 
 CMD ["npm", "run" ,"dev"]
