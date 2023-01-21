@@ -9,7 +9,7 @@ COPY . .
 
 # FROM node:16-alpine
 
-WORKDIR /react
-COPY --from=build /react .
+# WORKDIR /react
+# COPY --from=build /react .
 
 CMD ["yarn", "run" ,"dev"]
