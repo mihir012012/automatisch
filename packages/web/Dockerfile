@@ -11,4 +11,4 @@ COPY . .
 # WORKDIR /react
 # COPY --from=build /react .
 
-CMD ["npm", "dev"]
+CMD ["npm", "run" ,"dev"]
