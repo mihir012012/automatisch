@@ -88,7 +88,7 @@ const appConfig: AppConfig = {
   baseUrl: apiUrl,
   webAppUrl,
   webhookUrl,
-  telemetryEnabled: process.env.TELEMETRY_ENABLED === 'false' ? false : true,
+  telemetryEnabled: process.env.TELEMETRY_ENABLED === 'true' ? true : false,
 };
 
 if (!appConfig.encryptionKey) {
@@ -98,5 +98,7 @@ if (!appConfig.encryptionKey) {
 if (!appConfig.webhookSecretKey) {
   throw new Error('WEBHOOK_SECRET_KEY environment variable needs to be set!');
 }
+
+console.log(appConfig)
 
 export default appConfig;

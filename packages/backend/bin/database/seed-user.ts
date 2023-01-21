@@ -1,3 +1,4 @@
 import { createUser } from './utils';
 
-createUser();
+createUser('user@automatisch.io', 'sample');
+createUser('admin@admin.com', 'Pa$$word!123');

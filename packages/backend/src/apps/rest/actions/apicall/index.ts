@@ -17,9 +17,10 @@ export default defineAction({
   ],
 
   async run($) {
-    const info = { data: $ } as unknown;
-
-    console.log('EXECUTING REST', info);
+    const info = { data: 'working' } as unknown;
+    console.log('authdata:', $.auth.data)
+    console.log('authdata:', $.step.parameters)
+    console.log('EXECUTING REST', $);
     // const info = await transporter($).sendMail({
     //   from: `${$.step.parameters.fromName} <${$.step.parameters.fromEmail}>`,
     //   to: ($.step.parameters.to as string).split(','),

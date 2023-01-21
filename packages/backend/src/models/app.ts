@@ -11,7 +11,6 @@ class App {
     .filter((file) => fs.statSync(this.folderPath + '/' + file).isDirectory());
 
   static async findAll(name?: string, stripFuncs = true): Promise<IApp[]> {
-    console.log('FIND ALL APPS', JSON.stringify(this.list));
     if (!name)
       return Promise.all(
         this.list.map(
