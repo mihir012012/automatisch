@@ -3,6 +3,7 @@ import { join } from 'path';
 import { IApp } from '@automatisch/types';
 import appInfoConverter from '../helpers/app-info-converter';
 import getApp from '../helpers/get-app';
+import logger from '../helpers/logger';
 
 class App {
   static folderPath = join(__dirname, '../apps');
@@ -11,6 +12,7 @@ class App {
     .filter((file) => fs.statSync(this.folderPath + '/' + file).isDirectory());
 
   static async findAll(name?: string, stripFuncs = true): Promise<IApp[]> {
+    logger.info(JSON.stringify(this.list))
     if (!name)
       return Promise.all(
         this.list.map(
