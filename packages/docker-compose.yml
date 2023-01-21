@@ -37,9 +37,9 @@ services:
       - WEB_APP_URL=http://localhost:3001
       - WEBHOOK_URL=http://localhost:3000
       - APP_ENV=development
-      - POSTGRES_DATABASE=automatisch_development
+      - POSTGRES_DATABASE=dbname
       - POSTGRES_PORT=5432
-      - POSTGRES_HOST=localhost
+      - POSTGRES_HOST=postgres
       - POSTGRES_USERNAME=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_ENABLE_SSL=false
@@ -47,7 +47,7 @@ services:
       - WEBHOOK_SECRET_KEY=sample-webhook-key
       - APP_SECRET_KEY=sample-app-secret-key
       - REDIS_PORT=6379
-      - REDIS_HOST=127.0.0.1
+      - REDIS_HOST=redis
       - REDIS_TLS=true
       - ENABLE_BULLMQ_DASHBOARD=false
     depends_on:
