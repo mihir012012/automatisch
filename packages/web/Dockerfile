@@ -12,4 +12,4 @@ COPY . .
 WORKDIR /react
 COPY --from=build /react .
 
-CMD ["npm", "run" ,"dev"]
+CMD ["yarn", "run" ,"dev"]
