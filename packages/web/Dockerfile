@@ -2,13 +2,13 @@ FROM node:16-alpine as build
 
 WORKDIR /react
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 # RUN npm run build
 
-# FROM node:16-alpine
+FROM node:16-alpine
 
-# WORKDIR /react
-# COPY --from=build /react .
+WORKDIR /react
+COPY --from=build /react .
 
 CMD ["npm", "run" ,"dev"]

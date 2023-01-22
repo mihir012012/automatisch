@@ -50,6 +50,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_TLS=true
       - ENABLE_BULLMQ_DASHBOARD=false
+      - SERVE_WEB_APP_SEPARATELY=true
     depends_on:
       - postgres
       - redis
