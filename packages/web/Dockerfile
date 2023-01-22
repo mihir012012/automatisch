@@ -2,8 +2,7 @@ FROM node:16-alpine as build
 
 WORKDIR /react
 COPY package*.json ./
-RUN npm install yarn
-RUN yarn
+RUN npm install
 COPY . .
 # RUN npm run build
 
@@ -12,4 +11,4 @@ COPY . .
 # WORKDIR /react
 # COPY --from=build /react .
 
-CMD ["yarn", "run" ,"dev"]
+CMD ["npm", "run" ,"dev"]

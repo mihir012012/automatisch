@@ -13,4 +13,4 @@ COPY . .
 
 # CMD ["npm", "dev"]
 # CMD ["npm", "run", "db:create", "&&", "npm", "run", "db:seed:user", "&&", "npm", "run", "db:migrate", "&&", "npm", "run","worker", "&&", "npm", "run" ,"dev"]
-CMD ["yarn", "run","worker", "&&", "yarn", "run" ,"dev"]
+CMD ["npm", "run","worker", "&&", "npm", "run" ,"dev"]
