@@ -1,4 +1,4 @@
-node_modules
-dist
-logs
-tests
+node_modules/
+dist/
+logs/
+tests/
