@@ -2,8 +2,7 @@ FROM node:16-alpine as build
 
 WORKDIR /backend
 COPY package*.json ./
-RUN npm install yarn
-RUN yarn
+RUN npm install
 COPY . .
 # RUN npm run build
 
