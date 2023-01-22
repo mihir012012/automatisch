@@ -1,0 +1,9 @@
+node_modules/
+packages/backend/node_modules/
+packages/backend/dist/
+packages/cli/node_modules/
+# packages/cli/dist/
+packages/web/node_modules/
+packages/web/build/
+.github/
+.env
