@@ -16,4 +16,4 @@ WORKDIR /project
 COPY --from=build /project .
 EXPOSE 3000
 EXPOSE 3001
-CMD ["yarn", "worker", "&", "yarn", "start"]
+CMD ["yarn","run", "start:worker"]

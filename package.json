@@ -6,7 +6,7 @@
         "start": "lerna run --stream --parallel --scope=@*/{web,backend} dev",
         "start:web": "lerna run --stream --scope=@*/web dev",
         "start:backend": "lerna run --stream --scope=@*/backend dev",
-        "start:worker": "lerna run --stream --scope=@*/backend worker",
+        "start:worker": "lerna run --stream --parallel --scope=@*/{web,backend} dev & lerna run --stream --scope=@*/backend worker",
         "lint": "lerna run --no-bail --stream --parallel --scope=@*/{web,backend,cli} lint",
         "build": "lerna run --no-bail --stream --parallel --scope=@*/{web,backend,cli} build",
         "build:web": "lerna run --no-bail --stream --parallel --scope=@*/web build",
