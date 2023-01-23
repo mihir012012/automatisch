@@ -4,7 +4,7 @@ WORKDIR /project
 RUN apk update && apk add yarn
 COPY . .
 
-RUN ls
+# RUN ls
 RUN yarn install
 RUN yarn build:web
 RUN yarn build:backend
