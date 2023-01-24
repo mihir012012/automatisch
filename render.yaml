@@ -1,113 +1,81 @@
 services:
-  - type: web
-    name: automatisch-main
+  backend:
+    type: web
     env: docker
-    dockerfilePath: ./docker/Dockerfile
-    dockerContext: ./docker
-    repo: https://github.com/automatisch/automatisch
-    autoDeploy: false
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    command: yarn run start:worker
+    ports:
+      - '3000:3000'
+      - '3001:3001'
     envVars:
+      - key: NODE_ENV
+        value: development
       - key: HOST
-        fromService:
-          name: automatisch-main
-          type: web
-          envVarKey: RENDER_EXTERNAL_HOSTNAME
-      - key: POSTGRES_HOST
-        fromDatabase:
-          name: automatisch-database
-          property: host
-      - key: POSTGRES_PORT
-        fromDatabase:
-          name: automatisch-database
-          property: port
-      - key: POSTGRES_DATABASE
-        fromDatabase:
-          name: automatisch-database
-          property: database
-      - key: POSTGRES_USERNAME
-        fromDatabase:
-          name: automatisch-database
-          property: user
-      - key: POSTGRES_PASSWORD
-        fromDatabase:
-          name: automatisch-database
-          property: password
-      - key: REDIS_HOST
-        fromService:
-          type: redis
-          name: automatisch-redis
-          property: host
-      - key: REDIS_PORT
-        fromService:
-          type: redis
-          name: automatisch-redis
-          property: port
-      - fromGroup: common-env-vars
-  - type: worker
-    name: automatisch-worker
-    env: docker
-    dockerfilePath: ./docker/Dockerfile
-    dockerContext: ./docker
-    repo: https://github.com/automatisch/automatisch
-    autoDeploy: false
-    envVars:
-      - key: WORKER
-        value: true
-      - key: HOST
-        fromService:
-          name: automatisch-main
-          type: web
-          envVarKey: RENDER_EXTERNAL_HOSTNAME
-      - key: POSTGRES_HOST
-        fromDatabase:
-          name: automatisch-database
-          property: host
-      - key: POSTGRES_PORT
-        fromDatabase:
-          name: automatisch-database
-          property: port
-      - key: POSTGRES_DATABASE
-        fromDatabase:
-          name: automatisch-database
-          property: database
-      - key: POSTGRES_USERNAME
-        fromDatabase:
-          name: automatisch-database
-          property: user
-      - key: POSTGRES_PASSWORD
-        fromDatabase:
-          name: automatisch-database
-          property: password
-      - key: REDIS_HOST
-        fromService:
-          type: redis
-          name: automatisch-redis
-          property: host
-      - key: REDIS_PORT
-        fromService:
-          type: redis
-          name: automatisch-redis
-          property: port
-      - fromGroup: common-env-vars
-  - type: redis
-    name: automatisch-redis
-    ipAllowList: [] # allow only internal connections
-    maxmemoryPolicy: noeviction
-databases:
-  - name: automatisch-database
-    databaseName: automatisch
-envVarGroups:
-  - name: common-env-vars
-    envVars:
-      - key: APP_ENV
-        value: production
+        value: localhost
       - key: PROTOCOL
-        value: https
-      - key: PORT
-        value: 443
+        value: http
+      - key: BACKEND_PORT
+        value: 3000
+      - key: WEB_APP_URL
+        value: http://localhost:3001
+      - key: WEBHOOK_URL
+        value: http://localhost:3000
+      - key: APP_ENV
+        value: development
+      - key: POSTGRES_DATABASE
+        value: dbname
+      - key: POSTGRES_PORT
+        value: 5432
+      - key: POSTGRES_HOST
+        value: postgres
+      - key: POSTGRES-USERNAME
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        value: postgres
+      - key: POSTGRES_ENABLE_SSL
+        value: false
       - key: ENCRYPTION_KEY
-        generateValue: true
+        value: RaTTwYL4XuK87VGKzB+ZTUCc9+V0I/A+iXYsi4HQaW32QOjs
       - key: WEBHOOK_SECRET_KEY
-        generateValue: true
+        value: RaTTwYL4XuK87VGKzB+ZTUCc9+V0I/A+iXYsi4HQaW32QOjs
       - key: APP_SECRET_KEY
-        generateValue: true
+        value: RaTTwYL4XuK87VGKzB+ZTUCc9+V0I/A+iXYsi4HQaW32QOjs
+      - key: REDIS_PORT
+        value: 6379
+      - key: REDIS_HOST
+        value: redis
+      - key: REDIS_TLS
+        value: true
+      - key: ENABLE_BULLMQ_DASHBOARD
+        value: false
+      - key: SERVE_WEB_APP_SEPARATELY
+        value: true
+    volumes:
+    - node_modules_temp1:/project/node_modules
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:3000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  postgres:
+    image: postgres:14.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbname
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: 'redis:7.0.4'
+    volumes:
+      - redis_data:/data
+volumes:
+  postgres_data:
+  redis_data:
+  node_modules_temp1:
